@@ -1,0 +1,57 @@
+{
+  "name": "my-gallery",
+  "version": "1.0.0",
+  "description": "完全离线的个人作品画廊管理系统",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "dev": "concurrently -k \"node desktop/server.cjs\" \"vite\"",
+    "build": "tsc --noEmit && vite build",
+    "desktop": "npm run build && electron .",
+    "package": "npm run build && electron-builder --win --dir",
+    "test": "node --test tests/*.test.cjs",
+    "seed": "node scripts/seed.cjs"
+  },
+  "keywords": [],
+  "author": "MyGallery",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "adm-zip": "^0.6.1",
+    "express": "^5.3.0",
+    "lucide-react": "^1.58.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sharp": "^0.35.5",
+    "sql.js": "^1.15.0"
+  },
+  "build": {
+    "appId": "com.mygallery.desktop",
+    "productName": "MyGallery",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "desktop/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "beforePack": "./scripts/protect-library.cjs",
+    "electronDist": "node_modules/electron/dist",
+    "win": {
+      "target": "dir",
+      "signAndEditExecutable": false
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.6",
+    "electron": "^44.8.0",
+    "electron-builder": "^26.15.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  }
+}

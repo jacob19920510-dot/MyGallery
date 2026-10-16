@@ -1,0 +1,32 @@
+const express=require('express');
+const path=require('node:path');
+const fs=require('node:fs');
+const {randomBytes}=require('node:crypto');
+const {GalleryStore}=require('./store.cjs');
+async function startServer({root,port=4174,production=false,onOpenFolder,onBackup,onRestore}={}){
+  const store=await new GalleryStore().init(root||path.join(__dirname,'..'));
+  const app=express(),token=randomBytes(32).toString('hex');let queue=Promise.resolve();
+  app.use((req,res,next)=>{if(!['127.0.0.1','localhost'].includes(req.hostname))return res.sendStatus(403);if(req.headers.origin&&!['http://127.0.0.1:5173',`http://127.0.0.1:${server.address().port}`].includes(req.headers.origin))return res.sendStatus(403);res.setHeader('X-Content-Type-Options','nosniff');next();});
+  app.get('/api/bootstrap',(req,res)=>{if(production&&!req.headers.cookie?.includes('gallery='+token))return res.sendStatus(403);if(!production&&!['same-origin','same-site',undefined].includes(req.headers['sec-fetch-site']))return res.sendStatus(403);res.cookie('gallery',token,{httpOnly:true,sameSite:'strict'});res.json({token,desktop:!!onBackup});});
+  if(production)app.get('/',(req,res,next)=>{if(req.query.session===token){res.cookie('gallery',token,{httpOnly:true,sameSite:'strict'});return res.redirect('/');}if(!req.headers.cookie?.includes('gallery='+token))return res.sendStatus(403);next();});
+  app.use(['/api','/media'],(req,res,next)=>{if(!req.headers.cookie?.includes('gallery='+token))return res.sendStatus(403);if(req.path!=='/media'&&req.method!=='GET'&&req.headers['x-gallery-token']!==token)return res.sendStatus(403);next();});
+  app.use(express.json({limit:'800mb'}));
+  app.get('/media/*file',(req,res)=>{try{const rel=req.params.file.join('/');if(!/^(images|thumbnails)\//.test(rel))return res.sendStatus(403);res.sendFile(store.file(rel));}catch{res.sendStatus(404);}});
+  app.get('/api/catalog',(req,res)=>res.json(store.catalog()));
+  app.get('/api/featured',(req,res)=>{try{res.json(store.featured());}catch(e){res.status(400).json({error:e.message});}});
+  app.get('/api/works',(req,res)=>{try{res.json(store.list({...req.query,categories:req.query.categories?String(req.query.categories).split(','):[]}));}catch(e){res.status(400).json({error:e.message});}});
+  app.get('/api/works/:id',(req,res)=>{try{res.json(store.detail(req.params.id));}catch(e){res.status(404).json({error:e.message});}});
+  const post=(route,fn)=>app.post('/api/'+route,(req,res)=>{const run=async()=>{try{res.json(await fn(req.body));}catch(e){console.error(e);res.status(400).json({error:e.message});}};queue=queue.then(run,run);});
+  post('save',b=>store.save(b.work,b.files));post('batch',b=>store.batch(b));post('purge',b=>store.purge(b));post('taxonomy',b=>store.taxonomy(b));post('scan',b=>store.scan(b));
+  post('featured',b=>store.setFeatured(b.ids));
+  app.get('/api/backup',(req,res)=>{queue=queue.then(()=>{try{res.setHeader('Content-Disposition','attachment; filename="MyGallery-'+Date.now()+'.zip"');res.type('zip').send(store.backupBuffer());}catch(e){res.status(400).json({error:e.message});}});});
+  post('backup-desktop',async()=>{if(!onBackup)throw Error('请在桌面版使用原生目录选择');return onBackup(store.backupBuffer());});
+  post('inspect-backup',b=>store.inspectBackup(Buffer.from(b.data,'base64')));
+  post('restore',b=>store.restore(Buffer.from(b.data,'base64'),b.confirm));
+  post('open-folder',b=>{if(!onOpenFolder)throw Error('打开目录仅在桌面版可用');const rel=b.id?store.detail(b.id).images[0]?.relative_path:null;return onOpenFolder(rel?path.dirname(store.file(rel)):store.root);});
+  if(production)app.use(express.static(path.join(__dirname,'../dist')));
+  const server=await new Promise(resolve=>{const s=app.listen(port,'127.0.0.1',()=>resolve(s));});
+  return {store,server,url:`http://127.0.0.1:${server.address().port}/?session=${token}`};
+}
+if(require.main===module)startServer({root:process.env.MYGALLERY_ROOT}).then(()=>console.log('MyGallery API ready at http://127.0.0.1:4174'));
+module.exports={startServer};
