@@ -79,7 +79,7 @@ class GalleryStore {
     if(q.tag){where.push('EXISTS(SELECT 1 FROM work_tags WHERE work_id=w.id AND tag_id=?)');args.push(q.tag);}
     const sort={created_at:'w.created_at',artwork_date:'w.artwork_date',updated_at:'w.updated_at',title:'w.title',deleted_at:'w.deleted_at'}[q.sort]||'w.created_at';
     const clause=where.join(' AND '),total=this.all(`SELECT COUNT(*) n FROM works w WHERE ${clause}`,args)[0].n;
-    const page=Math.max(1,Number(q.page)||1),size=24;
+    const page=Math.max(1,Number(q.page)||1),size=Math.min(200,Math.max(1,Number(q.pageSize)||24));
     return {total,page,items:this.all(`SELECT w.*,(SELECT COUNT(*) FROM work_images WHERE work_id=w.id) image_count,(SELECT relative_path FROM work_images WHERE id=w.cover_image_id) cover_path FROM works w WHERE ${clause} ORDER BY ${sort} ${q.direction==='asc'?'ASC':'DESC'},w.id LIMIT ? OFFSET ?`,[...args,size,(page-1)*size]).map(w=>({...w,description:JSON.parse(w.description),categories:this.all('SELECT category_id FROM work_categories WHERE work_id=?',[w.id]).map(x=>x.category_id),tags:this.all('SELECT t.* FROM tags t JOIN work_tags wt ON wt.tag_id=t.id WHERE wt.work_id=?',[w.id])}))};
   }
   detail(id){const w=this.all('SELECT * FROM works WHERE id=?',[id])[0];if(!w)throw Error('作品不存在');return {...w,description:JSON.parse(w.description),images:this.all('SELECT * FROM work_images WHERE work_id=? ORDER BY sort_order',[id]),categories:this.all('SELECT category_id FROM work_categories WHERE work_id=?',[id]).map(x=>x.category_id),tags:this.all('SELECT t.* FROM tags t JOIN work_tags wt ON wt.tag_id=t.id WHERE wt.work_id=?',[id])};}
