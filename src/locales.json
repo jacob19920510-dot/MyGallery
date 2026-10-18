@@ -564,6 +564,11 @@
     "Go to page number",
     "ページ番号へ移動"
   ],
+  "点击图片进入全屏查看": [
+    "點擊圖片進入全螢幕檢視",
+    "Open image in full-screen viewer",
+    "クリックして全画面表示"
+  ],
   "下一页": [
     "下一頁",
     "Next page",
