@@ -246,7 +246,7 @@
 :root[data-theme="dark"] .danger,:root[data-theme="dark"] .error{color:#ff9e96!important}
 :root[data-theme="dark"] .btn.destructive{background:#a9423c;border-color:#a9423c;color:#fff}
 
-.page-size-control{display:flex;align-items:center;gap:6px;white-space:nowrap}.page-size-control select{height:40px;min-width:82px;padding:0 8px;border:1px solid var(--line);border-radius:5px;background:var(--surface,#fff);color:var(--text);font:inherit}.pagination .icon-btn{min-width:40px;min-height:40px}
+.page-size-control{display:flex;align-items:center;gap:6px;white-space:nowrap}.page-size-control select{height:40px;min-width:82px;padding:0 8px;border:1px solid var(--line);border-radius:5px;background:var(--surface,#fff);color:var(--text);font:inherit}.pagination .icon-btn{min-width:40px;min-height:40px}.page-jump-control{display:flex;align-items:center;gap:5px;white-space:nowrap;font-size:11px}.page-jump-control input{width:56px;min-height:40px;padding:0 5px;border:1px solid var(--line);border-radius:5px;background:var(--surface,#fff);color:var(--text);font:inherit;text-align:center;font-variant-numeric:tabular-nums}.page-jump-control>span:last-child{min-width:30px;text-align:left;font-variant-numeric:tabular-nums}
 
 .trash-confirm-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:22px}
 
