@@ -2258,5 +2258,75 @@
     "請求內容不完整或格式錯誤，請重新選擇圖片後儲存",
     "Incomplete or invalid request. Select the images again and save.",
     "リクエストが不完全、または形式が無効です。画像を選び直して保存してください。"
+  ],
+  "编辑个人资料": [
+    "編輯個人資料",
+    "Edit profile",
+    "プロフィールを編集"
+  ],
+  "头像": [
+    "頭像",
+    "Avatar",
+    "アバター"
+  ],
+  "显示名称": [
+    "顯示名稱",
+    "Display name",
+    "表示名"
+  ],
+  "建议使用正方形图片，系统会自动缩放。": [
+    "建議使用正方形圖片，系統會自動縮放。",
+    "Square images work best; the image will be resized automatically.",
+    "正方形の画像をおすすめします。自動的に縮小されます。"
+  ],
+  "更换头像": [
+    "更換頭像",
+    "Change avatar",
+    "アバターを変更"
+  ],
+  "上传头像": [
+    "上傳頭像",
+    "Upload avatar",
+    "アバターをアップロード"
+  ],
+  "恢复默认头像": [
+    "恢復預設頭像",
+    "Remove avatar",
+    "既定のアバターに戻す"
+  ],
+  "请选择有效的图片文件。": [
+    "請選擇有效的圖片檔案。",
+    "Choose a valid image file.",
+    "有効な画像ファイルを選択してください。"
+  ],
+  "图片文件不能超过 20 MB。": [
+    "圖片檔案不能超過 20 MB。",
+    "Image files must be 20 MB or smaller.",
+    "画像ファイルは20 MB以下にしてください。"
+  ],
+  "无法读取该图片，请选择其他文件。": [
+    "無法讀取這張圖片，請選擇其他檔案。",
+    "Could not read that image. Choose another file.",
+    "画像を読み込めません。別のファイルを選択してください。"
+  ],
+  "请输入显示名称。": [
+    "請輸入顯示名稱。",
+    "Enter a display name.",
+    "表示名を入力してください。"
+  ],
+  "正在处理头像…": [
+    "正在處理頭像…",
+    "Processing avatar…",
+    "アバターを処理しています…"
+  ],
+  "个人资料已保存。": [
+    "個人資料已儲存。",
+    "Profile saved.",
+    "プロフィールを保存しました。"
+  ],
+  "保存个人资料失败，请检查存储空间后重试。": [
+    "儲存個人資料失敗，請檢查儲存空間後重試。",
+    "Could not save your profile. Check available storage and try again.",
+    "プロフィールを保存できませんでした。保存領域を確認して再試行してください。"
   ]
 }
