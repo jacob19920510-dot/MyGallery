@@ -302,5 +302,5 @@
 :root[data-theme="dark"] .profile-crop-stage{border-color:#e4edf8;box-shadow:0 0 0 1px #526783,0 8px 24px #0006}
 @media(max-width:600px){.profile-cropper{padding:16px 18px 20px}.profile-crop-controls{flex-direction:column;gap:10px}.profile-crop-zoom{width:100%;max-width:280px}}
 
-.sidebar .user-profile{min-height:82px;padding-top:18px;padding-bottom:18px}
+.sidebar .user-profile{width:100%;min-height:82px;padding-top:18px;padding-bottom:18px}
 .sidebar .user-profile>.avatar{width:38px;height:38px;font-size:19px}
