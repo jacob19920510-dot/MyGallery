@@ -2284,10 +2284,10 @@
     "Avatars appear in a circle. After choosing an image, drag and zoom to adjust the crop.",
     "アバターは円形で表示されます。画像を選んだ後、ドラッグやズームで範囲を調整できます。"
   ],
-  "拖动图片调整显示范围，也可用方向键、按钮和缩放滑块微调。": [
-    "拖曳圖片調整顯示範圍，也可用方向鍵、按鈕和縮放滑桿微調。",
-    "Drag the image to adjust the crop, or fine-tune it with the arrow keys, buttons and zoom slider.",
-    "画像をドラッグして範囲を調整できます。矢印キーやボタン、ズームスライダーでも微調整できます。"
+  "拖动图片调整显示范围，也可用方向键和缩放滑块微调。": [
+    "拖曳圖片調整顯示範圍，也可用方向鍵和縮放滑桿微調。",
+    "Drag the image to adjust the crop, or fine-tune it with the arrow keys and zoom slider.",
+    "画像をドラッグして範囲を調整できます。矢印キーやズームスライダーでも微調整できます。"
   ],
   "头像预览区域": [
     "頭像預覽區域",
@@ -2298,31 +2298,6 @@
     "縮放頭像",
     "Zoom avatar",
     "アバターを拡大・縮小"
-  ],
-  "微调头像位置": [
-    "微調頭像位置",
-    "Adjust avatar position",
-    "アバターの位置を微調整"
-  ],
-  "向上移动头像": [
-    "向上移動頭像",
-    "Move avatar up",
-    "アバターを上に移動"
-  ],
-  "向下移动头像": [
-    "向下移動頭像",
-    "Move avatar down",
-    "アバターを下に移動"
-  ],
-  "向左移动头像": [
-    "向左移動頭像",
-    "Move avatar left",
-    "アバターを左に移動"
-  ],
-  "向右移动头像": [
-    "向右移動頭像",
-    "Move avatar right",
-    "アバターを右に移動"
   ],
   "使用此头像": [
     "使用此頭像",

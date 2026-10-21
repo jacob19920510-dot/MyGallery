@@ -298,9 +298,6 @@
 .profile-crop-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 18px}
 .profile-crop-zoom{display:grid;gap:6px;flex:1;max-width:230px;color:var(--muted);font-size:11px}
 .profile-crop-zoom input{width:100%;margin:0;accent-color:var(--green)}
-.profile-crop-nudge{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);place-items:center}
-.profile-crop-nudge .btn{display:grid;width:44px;height:44px;min-width:44px;min-height:44px;place-items:center;padding:0}
-.profile-crop-center{width:6px;height:6px;border-radius:50%;background:var(--muted);opacity:.55}
 .profile-cropper .profile-form-actions{margin-top:14px}
 :root[data-theme="dark"] .profile-crop-stage{border-color:#e4edf8;box-shadow:0 0 0 1px #526783,0 8px 24px #0006}
 @media(max-width:600px){.profile-cropper{padding:16px 18px 20px}.profile-crop-controls{flex-direction:column;gap:10px}.profile-crop-zoom{width:100%;max-width:280px}}

@@ -1,6 +1,6 @@
 import {useEffect,useRef,useState} from 'react';
 import type {ChangeEvent,FormEvent,KeyboardEvent as ReactKeyboardEvent,PointerEvent as ReactPointerEvent} from 'react';
-import {ArrowDown,ArrowLeft,ArrowRight,ArrowUp,Camera,RotateCcw} from 'lucide-react';
+import {Camera,RotateCcw} from 'lucide-react';
 import {t as translate} from './i18n';
 import {Modal} from './components';
 
@@ -160,7 +160,7 @@ function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=
  };
 
  return <div className="profile-cropper">
-  <p className="profile-crop-instructions" id="profile-crop-instructions">{translate('拖动图片调整显示范围，也可用方向键、按钮和缩放滑块微调。')}</p>
+  <p className="profile-crop-instructions" id="profile-crop-instructions">{translate('拖动图片调整显示范围，也可用方向键和缩放滑块微调。')}</p>
   <div className="profile-crop-stage-wrap">
    <div ref={stageRef} className={`profile-crop-stage${dragging?' dragging':''}`} role="group" aria-label={translate('头像预览区域')} aria-describedby="profile-crop-instructions" tabIndex={0} onKeyDown={handleStageKeyDown} onPointerDown={startDrag} onPointerMove={continueDrag} onPointerUp={stopDrag} onPointerCancel={stopDrag} onLostPointerCapture={stopDrag}>
     <img src={source.url} alt="" draggable={false} style={{width:renderedWidth,height:renderedHeight,left:stageSize/2+offset.x,top:stageSize/2+offset.y}}/>
@@ -168,17 +168,6 @@ function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=
   </div>
   <div className="profile-crop-controls">
    <label className="profile-crop-zoom"><span>{translate('缩放头像')}</span><input type="range" min="1" max="3" step="0.01" aria-label={translate('缩放头像')} value={zoom} onChange={event=>setZoom(Number(event.target.value))}/></label>
-   <div className="profile-crop-nudge" role="group" aria-label={translate('微调头像位置')}>
-    <span aria-hidden="true"/>
-    <button type="button" className="btn" aria-label={translate('向上移动头像')} title={translate('向上移动头像')} onClick={()=>moveBy(0,-12)}><ArrowUp size={17}/></button>
-    <span aria-hidden="true"/>
-    <button type="button" className="btn" aria-label={translate('向左移动头像')} title={translate('向左移动头像')} onClick={()=>moveBy(-12,0)}><ArrowLeft size={17}/></button>
-    <span className="profile-crop-center" aria-hidden="true"/>
-    <button type="button" className="btn" aria-label={translate('向右移动头像')} title={translate('向右移动头像')} onClick={()=>moveBy(12,0)}><ArrowRight size={17}/></button>
-    <span aria-hidden="true"/>
-    <button type="button" className="btn" aria-label={translate('向下移动头像')} title={translate('向下移动头像')} onClick={()=>moveBy(0,12)}><ArrowDown size={17}/></button>
-    <span aria-hidden="true"/>
-   </div>
   </div>
   {error&&<p className="profile-form-error" role="alert">{error}</p>}
   <div className="profile-form-actions"><button type="button" className="btn" onClick={onCancel}>{translate('取消')}</button><button type="button" className="btn primary" onClick={applyCrop}>{translate('使用此头像')}</button></div>
