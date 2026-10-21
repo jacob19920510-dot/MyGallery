@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState} from 'react';
-import type {ChangeEvent,FormEvent,KeyboardEvent as ReactKeyboardEvent,PointerEvent as ReactPointerEvent} from 'react';
+import type {ChangeEvent,FormEvent,KeyboardEvent as ReactKeyboardEvent,PointerEvent as ReactPointerEvent,WheelEvent as ReactWheelEvent} from 'react';
 import {Camera,RotateCcw} from 'lucide-react';
 import {t as translate} from './i18n';
 import {Modal} from './components';
@@ -138,6 +138,11 @@ function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=
   event.preventDefault();
   moveBy(nudge[0],nudge[1]);
  };
+ const handleStageWheel=(event:ReactWheelEvent<HTMLDivElement>)=>{
+  event.preventDefault();
+  const delta=event.deltaMode===1?event.deltaY*16:event.deltaMode===2?event.deltaY*stageSize:event.deltaY;
+  setZoom(current=>Math.max(1,Math.min(3,current-delta*0.002)));
+ };
 
  const applyCrop=()=>{
   try{
@@ -160,9 +165,9 @@ function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=
  };
 
  return <div className="profile-cropper">
-  <p className="profile-crop-instructions" id="profile-crop-instructions">{translate('拖动图片调整显示范围，也可用方向键和缩放滑块微调。')}</p>
+  <p className="profile-crop-instructions" id="profile-crop-instructions">{translate('拖动图片调整显示范围，滚动鼠标滚轮或使用缩放滑块缩放，也可用方向键微调。')}</p>
   <div className="profile-crop-stage-wrap">
-   <div ref={stageRef} className={`profile-crop-stage${dragging?' dragging':''}`} role="group" aria-label={translate('头像预览区域')} aria-describedby="profile-crop-instructions" tabIndex={0} onKeyDown={handleStageKeyDown} onPointerDown={startDrag} onPointerMove={continueDrag} onPointerUp={stopDrag} onPointerCancel={stopDrag} onLostPointerCapture={stopDrag}>
+   <div ref={stageRef} className={`profile-crop-stage${dragging?' dragging':''}`} role="group" aria-label={translate('头像预览区域')} aria-describedby="profile-crop-instructions" tabIndex={0} onKeyDown={handleStageKeyDown} onWheel={handleStageWheel} onPointerDown={startDrag} onPointerMove={continueDrag} onPointerUp={stopDrag} onPointerCancel={stopDrag} onLostPointerCapture={stopDrag}>
     <img src={source.url} alt="" draggable={false} style={{width:renderedWidth,height:renderedHeight,left:stageSize/2+offset.x,top:stageSize/2+offset.y}}/>
    </div>
   </div>

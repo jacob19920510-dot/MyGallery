@@ -2279,10 +2279,10 @@
     "Avatars appear in a circle. After choosing an image, drag and zoom to adjust the crop.",
     "アバターは円形で表示されます。画像を選んだ後、ドラッグやズームで範囲を調整できます。"
   ],
-  "拖动图片调整显示范围，也可用方向键和缩放滑块微调。": [
-    "拖曳圖片調整顯示範圍，也可用方向鍵和縮放滑桿微調。",
-    "Drag the image to adjust the crop, or fine-tune it with the arrow keys and zoom slider.",
-    "画像をドラッグして範囲を調整できます。矢印キーやズームスライダーでも微調整できます。"
+  "拖动图片调整显示范围，滚动鼠标滚轮或使用缩放滑块缩放，也可用方向键微调。": [
+    "拖曳圖片調整顯示範圍，滾動滑鼠滾輪或使用縮放滑桿縮放，也可用方向鍵微調。",
+    "Drag the image to adjust the crop. Scroll the mouse wheel or use the zoom slider to zoom, and use the arrow keys to fine-tune the position.",
+    "画像をドラッグして範囲を調整できます。マウスホイールまたはズームスライダーで拡大・縮小し、矢印キーで位置を微調整できます。"
   ],
   "头像预览区域": [
     "頭像預覽區域",
