@@ -258,3 +258,7 @@
 :root[lang="en"] .main-nav button,:root[lang="en"] .bottom-nav button{height:auto;min-height:42px;line-height:1.4;padding-top:9px;padding-bottom:9px}
 :root[lang="en"] .heading-actions{flex-wrap:wrap}
 @media(max-width:600px){.language-settings .language-field{align-items:flex-start;flex-direction:column;gap:8px}.language-field select{width:100%}}
+
+/* Keep the horizontal brand artwork crisp and undistorted in the sidebar. */
+.sidebar .brand.brand-custom{height:110px;min-height:110px;flex:0 0 110px}
+.brand-artwork{width:100%;height:100%;object-fit:contain}
