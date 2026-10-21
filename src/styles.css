@@ -290,7 +290,7 @@
 .profile-avatar-preview{border-radius:50%;overflow:hidden}
 .profile-cropper{padding:18px 26px 24px}
 .profile-crop-instructions{max-width:420px;margin:0 auto 14px;color:var(--muted);font-size:11px;text-align:center}
-.profile-crop-stage-wrap{display:flex;justify-content:center;padding:3px 0 18px}
+.profile-crop-stage-wrap{display:flex;justify-content:center;padding:3px 0 18px;overscroll-behavior:contain}
 .profile-crop-stage{position:relative;width:min(280px,68vw);aspect-ratio:1;overflow:hidden;border:2px solid #fff;border-radius:50%;background:#111a2a;box-shadow:0 0 0 1px var(--line),0 8px 24px #23375420;cursor:grab;touch-action:none;user-select:none}
 .profile-crop-stage.dragging{cursor:grabbing}
 .profile-crop-stage:focus-visible{outline:3px solid var(--green);outline-offset:5px}

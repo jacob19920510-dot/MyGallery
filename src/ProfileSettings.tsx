@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState} from 'react';
-import type {ChangeEvent,FormEvent,KeyboardEvent as ReactKeyboardEvent,PointerEvent as ReactPointerEvent,WheelEvent as ReactWheelEvent} from 'react';
+import type {ChangeEvent,FormEvent,KeyboardEvent as ReactKeyboardEvent,PointerEvent as ReactPointerEvent} from 'react';
 import {Camera,RotateCcw} from 'lucide-react';
 import {t as translate} from './i18n';
 import {Modal} from './components';
@@ -63,7 +63,7 @@ export function ProfileSettings({profile,onSave,onClose}:{profile:ProfileData;on
   onSave({name:nextName,avatar});
  };
 
- return <Modal title={translate(cropSource?'调整头像显示范围':'编辑个人资料')} onClose={handleClose}>
+ return <Modal title={translate(cropSource?'调整头像显示范围':'编辑个人资料')} onClose={handleClose} closeOnBackdrop={!cropSource}>
   {cropSource?<AvatarCropper key={cropSource.url} source={cropSource} onCancel={closeCrop} onApply={value=>{setAvatar(value);setError('');setCropSource(null);}}/>:
    <form className="simple-form profile-editor" onSubmit={submit}>
     <div className="profile-edit-avatar">
@@ -88,7 +88,7 @@ export function ProfileSettings({profile,onSave,onClose}:{profile:ProfileData;on
 }
 
 function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=>void;onApply:(value:string)=>void}){
- const stageRef=useRef<HTMLDivElement>(null);
+ const stageRef=useRef<HTMLDivElement>(null),wheelRef=useRef<HTMLDivElement>(null);
  const dragRef=useRef<{pointerId:number;startX:number;startY:number;originX:number;originY:number}|null>(null);
  const [stageSize,setStageSize]=useState(280),[zoom,setZoom]=useState(1),[offset,setOffset]=useState({x:0,y:0}),[dragging,setDragging]=useState(false),[error,setError]=useState('');
  const {image}=source,naturalWidth=image.naturalWidth,naturalHeight=image.naturalHeight;
@@ -107,6 +107,18 @@ function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=
   updateSize();
   return()=>observer.disconnect();
  },[]);
+ useEffect(()=>{
+  const viewport=wheelRef.current;
+  if(!viewport)return;
+  const handleWheel=(event:WheelEvent)=>{
+   event.preventDefault();
+   event.stopPropagation();
+   const delta=event.deltaMode===1?event.deltaY*16:event.deltaMode===2?event.deltaY*stageSize:event.deltaY;
+   setZoom(current=>Math.max(1,Math.min(3,current-delta*0.002)));
+  };
+  viewport.addEventListener('wheel',handleWheel,{passive:false});
+  return()=>viewport.removeEventListener('wheel',handleWheel);
+ },[stageSize]);
 
  const clampOffset=(x:number,y:number,scale=zoom)=>{
   const width=previewWidth*fitScale*scale,height=previewHeight*fitScale*scale;
@@ -138,12 +150,6 @@ function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=
   event.preventDefault();
   moveBy(nudge[0],nudge[1]);
  };
- const handleStageWheel=(event:ReactWheelEvent<HTMLDivElement>)=>{
-  event.preventDefault();
-  const delta=event.deltaMode===1?event.deltaY*16:event.deltaMode===2?event.deltaY*stageSize:event.deltaY;
-  setZoom(current=>Math.max(1,Math.min(3,current-delta*0.002)));
- };
-
  const applyCrop=()=>{
   try{
    const canvas=document.createElement('canvas');
@@ -166,8 +172,8 @@ function AvatarCropper({source,onCancel,onApply}:{source:CropSource;onCancel:()=
 
  return <div className="profile-cropper">
   <p className="profile-crop-instructions" id="profile-crop-instructions">{translate('拖动图片调整显示范围，滚动鼠标滚轮或使用缩放滑块缩放，也可用方向键微调。')}</p>
-  <div className="profile-crop-stage-wrap">
-   <div ref={stageRef} className={`profile-crop-stage${dragging?' dragging':''}`} role="group" aria-label={translate('头像预览区域')} aria-describedby="profile-crop-instructions" tabIndex={0} onKeyDown={handleStageKeyDown} onWheel={handleStageWheel} onPointerDown={startDrag} onPointerMove={continueDrag} onPointerUp={stopDrag} onPointerCancel={stopDrag} onLostPointerCapture={stopDrag}>
+  <div ref={wheelRef} className="profile-crop-stage-wrap">
+   <div ref={stageRef} className={`profile-crop-stage${dragging?' dragging':''}`} role="group" aria-label={translate('头像预览区域')} aria-describedby="profile-crop-instructions" tabIndex={0} onKeyDown={handleStageKeyDown} onPointerDown={startDrag} onPointerMove={continueDrag} onPointerUp={stopDrag} onPointerCancel={stopDrag} onLostPointerCapture={stopDrag}>
     <img src={source.url} alt="" draggable={false} style={{width:renderedWidth,height:renderedHeight,left:stageSize/2+offset.x,top:stageSize/2+offset.y}}/>
    </div>
   </div>
