@@ -2264,6 +2264,11 @@
     "Edit profile",
     "プロフィールを編集"
   ],
+  "调整头像显示范围": [
+    "調整頭像顯示範圍",
+    "Adjust avatar crop",
+    "アバターの表示範囲を調整"
+  ],
   "头像": [
     "頭像",
     "Avatar",
@@ -2274,10 +2279,55 @@
     "Display name",
     "表示名"
   ],
-  "建议使用正方形图片，系统会自动缩放。": [
-    "建議使用正方形圖片，系統會自動縮放。",
-    "Square images work best; the image will be resized automatically.",
-    "正方形の画像をおすすめします。自動的に縮小されます。"
+  "头像会以圆形显示。选择后可拖动并缩放图片调整范围。": [
+    "頭像會以圓形顯示。選擇後可拖曳並縮放圖片來調整範圍。",
+    "Avatars appear in a circle. After choosing an image, drag and zoom to adjust the crop.",
+    "アバターは円形で表示されます。画像を選んだ後、ドラッグやズームで範囲を調整できます。"
+  ],
+  "拖动图片调整显示范围，也可用方向键、按钮和缩放滑块微调。": [
+    "拖曳圖片調整顯示範圍，也可用方向鍵、按鈕和縮放滑桿微調。",
+    "Drag the image to adjust the crop, or fine-tune it with the arrow keys, buttons and zoom slider.",
+    "画像をドラッグして範囲を調整できます。矢印キーやボタン、ズームスライダーでも微調整できます。"
+  ],
+  "头像预览区域": [
+    "頭像預覽區域",
+    "Avatar crop preview",
+    "アバターのプレビュー領域"
+  ],
+  "缩放头像": [
+    "縮放頭像",
+    "Zoom avatar",
+    "アバターを拡大・縮小"
+  ],
+  "微调头像位置": [
+    "微調頭像位置",
+    "Adjust avatar position",
+    "アバターの位置を微調整"
+  ],
+  "向上移动头像": [
+    "向上移動頭像",
+    "Move avatar up",
+    "アバターを上に移動"
+  ],
+  "向下移动头像": [
+    "向下移動頭像",
+    "Move avatar down",
+    "アバターを下に移動"
+  ],
+  "向左移动头像": [
+    "向左移動頭像",
+    "Move avatar left",
+    "アバターを左に移動"
+  ],
+  "向右移动头像": [
+    "向右移動頭像",
+    "Move avatar right",
+    "アバターを右に移動"
+  ],
+  "使用此头像": [
+    "使用此頭像",
+    "Use this avatar",
+    "このアバターを使用"
   ],
   "更换头像": [
     "更換頭像",
